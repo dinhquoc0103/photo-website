@@ -1,0 +1,11 @@
+@use "../../sass/" as *;
+
+.btn {
+    min-width: 5rem;
+    font-size: 1rem;
+    color: var(--black);
+    padding: 8px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
