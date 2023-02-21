@@ -1,0 +1,15 @@
+@use "../../sass/" as *;
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.6rem;
+
+    @include mobile {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    @include tablet {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}

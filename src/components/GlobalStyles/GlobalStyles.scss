@@ -9,6 +9,14 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 100%;
+
+    @include mobile {
+        font-size: 75%;
+    }
+}
+
 body {
     font-family: var(--font-family);
     font-size: 1rem;
