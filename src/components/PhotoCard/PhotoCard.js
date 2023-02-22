@@ -21,7 +21,7 @@ function PhotoCard({ photo }) {
                 <div className={cx("overlay__actions")}>
 
                     <div className={cx("overlay__actions__edit")} >
-                        <Link to="/photos/add">
+                        <Link to="/photos/18">
                             <Button className={["btn"]}>
                                 Edit
                             </Button>

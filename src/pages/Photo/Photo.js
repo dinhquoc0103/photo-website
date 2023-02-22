@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 
 function Photo() {
     return (
-        <div>
+        <>
             <Banner
                 title="Your amazings photos"
                 backgroundImg={Images.ColorfulBackground}
@@ -31,7 +31,7 @@ function Photo() {
                     <PhotoGrid />
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
