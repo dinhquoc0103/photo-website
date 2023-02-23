@@ -15,7 +15,8 @@ const cx = classNames.bind(styles);
 function PhotoForm() {
     const initialValues = {
         title: '',
-        categoryId: null
+        categoryId: null,
+        photo: ''
     }
 
     const handleSubmitFormPhoto = (values) => {
