@@ -1,0 +1,21 @@
+
+.form {
+    max-width: 600px;
+    margin: 2rem auto;
+
+    .form-group {
+        #react-select-3-input {
+            font-size: 1rem;
+            font-family: var(--font-family);
+        }
+
+        label {
+            color: var(--color);
+            font-size: 1.1rem;
+            display: block;
+            margin: 0 0 0.8rem 0;
+        }
+
+        
+    }
+}

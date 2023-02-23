@@ -10,7 +10,8 @@ function Button({
     disabled = false,
     className = ["btn"],
     children,
-    onClick
+    onClick,
+    onBlur
 }) {
     return (
         <button
@@ -18,6 +19,7 @@ function Button({
             disabled={disabled}
             className={cx(className)}
             onClick={onClick ? () => onClick() : null}
+            onBlur={onBlur ? () => onBlur() : null}
         >
             {children}
         </button>
