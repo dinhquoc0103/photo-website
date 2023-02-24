@@ -1,8 +1,12 @@
+import { useState } from "react";
+import { ErrorMessage } from "formik";
 import Select from "react-select";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
 import styles from "./SelectField.module.scss";
+import FormFeedBack from "../../components/FormFeedBack";
+
 
 const cx = classNames.bind(styles);
 
@@ -16,13 +20,22 @@ function SelectField({
     options = [],
 }) {
 
-    const { name, value } = field;
+    const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
+
 
     const selectName = options.find(option => option.value === value);
 
-    const handleSelectOntionChanged = (selectOption) => {
+    const handleSelectOptionChanged = (selectOption) => {
         form.setFieldValue(name, selectOption.value);
     }
+
+    const handleSelectOptionBlur = (e) => {
+        if (!e.target.value) {
+            form.setFieldError(name, "Category is required!");
+            form.setFieldTouched(name, true);
+        }
+    };
 
     return (
         <div className={cx("form-group")}>
@@ -34,10 +47,12 @@ function SelectField({
                 options={options}
                 id={name}
 
-                {...field}
                 value={selectName}
-                onChange={handleSelectOntionChanged}
+                onChange={handleSelectOptionChanged}
+                onBlur={e => handleSelectOptionBlur(e)}
             />
+
+            <ErrorMessage component={FormFeedBack} name={name} />
         </div>
     );
 }

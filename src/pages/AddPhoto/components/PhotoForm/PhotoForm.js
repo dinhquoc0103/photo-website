@@ -1,5 +1,5 @@
 import { FastField, Form, Formik } from "formik";
-import Select from "react-select";
+import * as Yup from "yup";
 import classNames from "classnames/bind";
 
 import styles from "./PhotoForm.module.scss";
@@ -23,13 +23,24 @@ function PhotoForm() {
         console.log(values);
     }
 
+    const photoFormSchema = Yup.object().shape({
+        title: Yup.string()
+            .min(5, "Title is too short!")
+            .required("Title is required!"),
+        categoryId: Yup.string()
+            .required("Category is required!"),
+        photo: Yup.string()
+            .required("You have to randomly choose an image!")
+    });
+
     return (
 
         < div className={cx("container")} >
 
             <Formik
                 initialValues={initialValues}
-                onSubmit={values => console.log("Photo: ", values)}
+                validationSchema={photoFormSchema}
+                onSubmit={handleSubmitFormPhoto}
             >
                 {
                     formikProps => {

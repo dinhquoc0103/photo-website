@@ -1,7 +1,10 @@
+import { ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
 import styles from "./InputField.module.scss";
+
+import FormFeedBack from "../../components/FormFeedBack";
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +17,9 @@ function InputField({
     placeholder = '',
     disabled = false
 }) {
+
     const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
 
     return (
         <div className={cx("form-group")}>
@@ -28,6 +33,8 @@ function InputField({
 
                 {...field}
             />
+
+            <ErrorMessage component={FormFeedBack} name={name} />
         </div>
     );
 }

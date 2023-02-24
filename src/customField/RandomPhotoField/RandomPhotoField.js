@@ -1,9 +1,12 @@
+import { ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
 import styles from "./RandomPhotoField.module.scss";
 
 import RandomPhoto from "../../components/RandomPhoto/RandomPhoto";
+import FormFeedBack from "../../components/FormFeedBack";
+
 
 const cx = classNames.bind(styles);
 
@@ -13,7 +16,9 @@ function RandomPhotoField({
 
     label = '',
 }) {
+
     const { name, value, onChange, onBlur } = field;
+    const { errors, touched } = form;
 
     const handleImageUrlChange = (imageUrl) => {
         form.setFieldValue(name, imageUrl);
@@ -29,6 +34,8 @@ function RandomPhotoField({
                 onImageUrlChange={handleImageUrlChange}
                 onRandomButtonBlur={onBlur}
             />
+
+            <ErrorMessage component={FormFeedBack} name={name} />
         </div>
     );
 }

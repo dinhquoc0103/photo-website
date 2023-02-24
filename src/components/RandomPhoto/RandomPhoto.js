@@ -13,10 +13,10 @@ const getRandomImageUrl = () => {
 }
 
 function RandomPhoto({
-    name,
-    imageUrl,
-    onImageUrlChange,
-    onRandomButtonBlur
+    name = '',
+    imageUrl = '',
+    onImageUrlChange = null,
+    onRandomButtonBlur = null
 }) {
 
     const handleRandomPhotoClick = () => {
@@ -32,7 +32,7 @@ function RandomPhoto({
                 <Button
                     className={["btn"]}
                     onClick={handleRandomPhotoClick}
-                    onBlur={onRandomButtonBlur ? onRandomButtonBlur : null}
+                    onBlur={onRandomButtonBlur}
                 >
                     Random a photo...
                 </Button>
