@@ -1,12 +1,24 @@
-import Images from "../../../../constants/images";
 
-import Banner from "../../../../components/Banner";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addPhoto } from "../../photosSlice";
 import PhotoForm from "../PhotoForm";
 
 function AddPhotoForm() {
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate()
+
+    const handleAddPhoto = (photo) => {
+        const action = addPhoto(photo);
+        dispatch(action);
+
+        navigate("/photos");
+    }
+
     return (
         <>
-            <PhotoForm />
+            <PhotoForm isAddPhoto onSubmit={handleAddPhoto} />
         </>
     );
 }

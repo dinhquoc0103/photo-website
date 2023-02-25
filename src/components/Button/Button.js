@@ -10,16 +10,16 @@ function Button({
     disabled = false,
     className = ["btn"],
     children,
-    onClick,
-    onBlur
+    onClick = null,
+    onBlur = null
 }) {
     return (
         <button
             type={type}
             disabled={disabled}
             className={cx(className)}
-            onClick={onClick ? () => onClick() : null}
-            onBlur={onBlur ? () => onBlur() : null}
+            onClick={onClick}
+            onBlur={onBlur}
         >
             {children}
         </button>

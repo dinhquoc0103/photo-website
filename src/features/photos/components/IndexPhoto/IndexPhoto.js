@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
+
+import styles from "./IndexPhoto.module.scss";
+import { photosSelector } from "../../../../app/selectors";
 
 import Button from "../../../../components/Button";
 import PhotoGrid from "../../../../components/PhotoGrid";
+import { useEffect } from "react";
 
-import styles from "./IndexPhoto.module.scss";
 
 const cx = classNames.bind(styles);
 
 function IndexPhoto() {
+    const photos = useSelector(photosSelector);
+
+    useEffect(() => console.log(photos))
+
     return (
         <div className={cx("photo")}>
             <div className={cx("photo-adding")}>

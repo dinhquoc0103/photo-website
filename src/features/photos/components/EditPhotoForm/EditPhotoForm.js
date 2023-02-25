@@ -6,7 +6,7 @@ import PhotoForm from "../PhotoForm";
 function AddPhotoForm() {
     return (
         <>
-            <PhotoForm />
+            <PhotoForm isAddPhoto={false} />
         </>
     );
 }

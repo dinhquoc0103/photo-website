@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FastField, Form, Formik } from "formik";
 import * as Yup from "yup";
 import classNames from "classnames/bind";
@@ -12,7 +13,10 @@ import RandomPhotoField from "../../../../customField/RandomPhotoField/RandomPho
 
 const cx = classNames.bind(styles);
 
-function PhotoForm() {
+function PhotoForm({
+    isAddPhoto,
+    onSubmit = null
+}) {
     const initialValues = {
         title: '',
         categoryId: null,
@@ -20,7 +24,7 @@ function PhotoForm() {
     }
 
     const handleSubmitFormPhoto = (values) => {
-        console.log(values);
+        onSubmit(values);
     }
 
     const photoFormSchema = Yup.object().shape({
@@ -77,7 +81,7 @@ function PhotoForm() {
                                             type="submit"
                                             className={["btn"]}
                                         >
-                                            Add Photo to album
+                                            {isAddPhoto ? "Add Photo to album" : "Edit your photo"}
                                         </Button>
                                     </div>
                                 </Form>
@@ -89,6 +93,11 @@ function PhotoForm() {
 
         </div >
     );
+}
+
+PhotoForm.propTypes = {
+    isAddPhoto: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func
 }
 
 export default PhotoForm;
