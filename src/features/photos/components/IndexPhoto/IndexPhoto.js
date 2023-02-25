@@ -1,21 +1,25 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
 import styles from "./IndexPhoto.module.scss";
 import { photosSelector } from "../../../../app/selectors";
+import { deletePhoto } from "../../photosSlice";
 
 import Button from "../../../../components/Button";
 import PhotoGrid from "../../../../components/PhotoGrid";
-import { useEffect } from "react";
 
 
 const cx = classNames.bind(styles);
 
 function IndexPhoto() {
+    const dispatch = useDispatch();
     const photos = useSelector(photosSelector);
 
-    useEffect(() => console.log(photos))
+    const handleDeletePhoto = (photo) => {
+        const action = deletePhoto(photo);
+        dispatch(action);
+    }
 
     return (
         <div className={cx("photo")}>
@@ -27,7 +31,7 @@ function IndexPhoto() {
                 </Link>
             </div>
 
-            <PhotoGrid />
+            <PhotoGrid photos={photos} onDeletePhotoClick={handleDeletePhoto} />
         </div>
     );
 }

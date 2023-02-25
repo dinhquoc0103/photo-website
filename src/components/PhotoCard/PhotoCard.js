@@ -8,20 +8,29 @@ import Button from "../../components/Button";
 
 const cx = classNames.bind(styles);
 
-function PhotoCard({ photo }) {
+function PhotoCard({
+    photo,
+    onDeletePhotoClick = null
+}) {
+
+    const handleRemoveClick = () => {
+        if (onDeletePhotoClick)
+            onDeletePhotoClick(photo)
+    }
+
     return (
         <div className={cx("photo-item")}>
-            <img src="https://picsum.photos/id/110/300/300" alt="" />
+            <img src={photo.photo} alt="" />
 
             <div className={cx("overlay")}>
                 <div className={cx("overlay__title")}>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    {photo.title}
                 </div>
 
                 <div className={cx("overlay__actions")}>
 
                     <div className={cx("overlay__actions__edit")} >
-                        <Link to="/photos/18">
+                        <Link to={`/photos/${photo.id}`}>
                             <Button className={["btn"]}>
                                 Edit
                             </Button>
@@ -30,7 +39,7 @@ function PhotoCard({ photo }) {
 
                     <div className={cx("overlay__actions__delete")}>
                         <Link to="">
-                            <Button className={["btn"]}>
+                            <Button className={["btn"]} onClick={handleRemoveClick}>
                                 Delete
                             </Button>
                         </Link>
@@ -43,7 +52,8 @@ function PhotoCard({ photo }) {
 }
 
 PhotoCard.propTypes = {
-    photo: PropTypes.object
+    photo: PropTypes.object,
+    onDeletePhotoClick: PropTypes.func,
 }
 
 export default PhotoCard;

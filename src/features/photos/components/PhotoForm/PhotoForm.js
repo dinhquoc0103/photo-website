@@ -15,13 +15,18 @@ const cx = classNames.bind(styles);
 
 function PhotoForm({
     isAddPhoto,
+    photo,
     onSubmit = null
 }) {
-    const initialValues = {
-        title: '',
-        categoryId: null,
-        photo: ''
-    }
+
+    const initialValues = isAddPhoto
+        ? {
+            title: '',
+            categoryId: null,
+            photo: ''
+        }
+        :
+        photo;
 
     const handleSubmitFormPhoto = (values) => {
         onSubmit(values);
@@ -97,6 +102,7 @@ function PhotoForm({
 
 PhotoForm.propTypes = {
     isAddPhoto: PropTypes.bool.isRequired,
+    photo: PropTypes.object,
     onSubmit: PropTypes.func
 }
 
