@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import styles from "./Photo.module.scss";
 import Images from "../../constants/images";
+import { publicPhotoRoutes } from "../../routes/photoRoutes";
 
 import Banner from "../../components/Banner";
 import Button from "../../components/Button";
-import PhotoGrid from "../../components/PhotoGrid";
 
 const cx = classNames.bind(styles);
 
@@ -19,17 +19,27 @@ function Photo() {
             />
 
             <div className={cx("container")}>
-                <div className={cx("photo")}>
-                    <div className={cx("photo-adding")}>
-                        <Link to="/photos/add">
-                            <Button className={["btn"]}>
-                                Add New Photo
-                            </Button>
-                        </Link>
-                    </div>
 
-                    <PhotoGrid />
-                </div>
+                <Routes>
+                    {
+                        publicPhotoRoutes.map((photoRoute, index) => {
+                            const Component = photoRoute.component;
+
+                            if (photoRoute.path === "index") {
+                                return <Route
+                                    index
+                                    element={<Component />}
+                                />
+                            }
+                            else {
+                                return <Route
+                                    path={photoRoute.path}
+                                    element={<Component />}
+                                />
+                            }
+                        })
+                    }
+                </Routes>
             </div>
         </>
     );
