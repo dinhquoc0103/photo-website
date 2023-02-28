@@ -1,0 +1,14 @@
+h1 {
+    text-align: center;
+}
+.login {
+    margin: 1rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button { 
+        font-size: var(--font-family) !important;
+        font-weight: 600;
+        width: 65% !important;
+    }
+}

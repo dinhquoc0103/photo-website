@@ -4,8 +4,9 @@ import EditPhotoForm from "../features/photos/components/EditPhotoForm";
 
 export const publicPhotoRoutes = [
     { path: "index", component: IndexPhoto },
+];
+
+export const privatePhotoRoutes = [
     { path: "add", component: AddPhotoForm },
     { path: ":id", component: EditPhotoForm },
 ];
-
-export const privatePhotoRoutes = [];

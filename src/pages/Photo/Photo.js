@@ -1,16 +1,17 @@
-import { Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import styles from "./Photo.module.scss";
 import Images from "../../constants/images";
-import { publicPhotoRoutes } from "../../routes/photoRoutes";
+import { privatePhotoRoutes, publicPhotoRoutes } from "../../routes/photoRoutes";
+import ProtectedRoute from "../../routes/protectedRoute";
 
 import Banner from "../../components/Banner";
-import Button from "../../components/Button";
 
 const cx = classNames.bind(styles);
 
 function Photo() {
+
     return (
         <>
             <Banner
@@ -37,6 +38,20 @@ function Photo() {
                                     element={<Component />}
                                 />
                             }
+                        })
+                    }
+                    {
+                        privatePhotoRoutes.map((photoRoute, index) => {
+                            const Component = photoRoute.component;
+
+                            return <Route
+                                path={photoRoute.path}
+                                element={
+                                    <ProtectedRoute>
+                                        <Component />
+                                    </ProtectedRoute>
+                                }
+                            />
                         })
                     }
                 </Routes>
