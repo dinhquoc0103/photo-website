@@ -1,10 +1,13 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
+import { useEffect } from "react";
 import styles from "./IndexPhoto.module.scss";
-import { photosSelector } from "../../../../app/selectors";
-import { deletePhoto } from "../../photosSlice";
+import { selectAllPhotos } from "../../../../app/selectors";
+import { deletePhoto, fetchPhotos } from "../../photosSlice";
+import { toast } from "react-toastify";
 
 import Button from "../../../../components/Button";
 import PhotoGrid from "../../../../components/PhotoGrid";
@@ -14,11 +17,35 @@ const cx = classNames.bind(styles);
 
 function IndexPhoto() {
     const dispatch = useDispatch();
-    const photos = useSelector(photosSelector);
 
-    const handleDeletePhoto = (photo) => {
-        const action = deletePhoto(photo);
-        dispatch(action);
+    const photos = useSelector(selectAllPhotos);
+
+    const photoStatus = useSelector(state => state.photos.status);
+
+    useEffect(() => {
+        if (photoStatus === "idle") {
+            dispatch(fetchPhotos());
+        }
+    }, [photoStatus, dispatch]);
+
+    const handleDeletePhoto = async (photo) => {
+        try {
+            const resultAction = await dispatch(deletePhoto(photo));
+            unwrapResult(resultAction);
+
+            toast.success('🦄 Delete a successful photo!', {
+                position: "top-center",
+                autoClose: 2600,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } catch (error) {
+            console.error("Failed to delete photo: ", error.message);
+        }
     }
 
     return (
@@ -30,8 +57,13 @@ function IndexPhoto() {
                     </Button>
                 </Link>
             </div>
-
-            <PhotoGrid photos={photos} onDeletePhotoClick={handleDeletePhoto} />
+            {
+                photoStatus === "succeeded"
+                    ?
+                    <PhotoGrid photos={photos} onDeletePhotoClick={handleDeletePhoto} />
+                    :
+                    <div>Loading...</div>
+            }
         </div>
     );
 }

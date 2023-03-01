@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-export const photosSelector = state => state.photos;
+export const selectAllPhotos = state => state.photos.photos;
 
 export const authSelector = state => state.auth;
 

@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 // Set up default config for http request 
 const httpRequest = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: "http://127.0.0.1:8001/api/v1/",
     headers: {
         'Content-Type': "application/json"
     },

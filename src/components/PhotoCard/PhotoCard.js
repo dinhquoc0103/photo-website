@@ -43,11 +43,10 @@ function PhotoCard({
                         </div>
 
                         <div className={cx("overlay__actions__delete")}>
-                            <Link to="">
-                                <Button className={["btn"]} onClick={handleRemoveClick}>
-                                    Delete
-                                </Button>
-                            </Link>
+                            <Button className={["btn"]} onClick={handleRemoveClick}>
+                                Delete
+                            </Button>
+
                         </div>
 
                     </div>

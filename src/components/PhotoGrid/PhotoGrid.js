@@ -8,6 +8,7 @@ import PhotoCard from "../../components/PhotoCard";
 const cx = classNames.bind(styles);
 
 function PhotoGrid({ photos, onDeletePhotoClick }) {
+
     return (
         <div className={cx("photo-grid")}>
             {

@@ -5,6 +5,7 @@ import { auth } from "./firebase";
 import { fetchUser } from "./features/auth/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import { publicRoutes } from "./routes";
 
@@ -38,7 +39,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       <Routes>
         {
           publicRoutes.map((route, index) => {
@@ -59,6 +59,8 @@ function App() {
           })
         }
       </Routes>
+
+      <ToastContainer />
     </BrowserRouter>
   );
 }
