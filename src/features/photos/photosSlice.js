@@ -78,14 +78,14 @@ import photoService from "./services";
 
 export const fetchPhotos = createAsyncThunk("photos/fetchPhotos", async () => {
     const response = await photoService.getAllPhotos();
-    return response;
+    return response.data;
 });
 
 export const addNewPhoto = createAsyncThunk(
     "photos/addNewPhoto",
     async (newPhoto) => {
         const response = await photoService.addNewPhoto(newPhoto);
-        return response;
+        return response.data;
     }
 );
 
@@ -93,7 +93,7 @@ export const updatePhoto = createAsyncThunk(
     "photos/updatePhoto",
     async ({ photoId, editedPhoto }) => {
         const response = await photoService.updatePhoto(photoId, editedPhoto);
-        return response;
+        return response.data;
     }
 );
 

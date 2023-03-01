@@ -7,7 +7,7 @@ export const fetchUser = createAsyncThunk("auth/fetchUser", async () => {
     return currentUser;
 })
 
-const authUser = JSON.parse(localStorage.getItem("AUTH_USER"));
+const authUser = JSON.parse(localStorage.getItem("AUTH_USER")) ?? {};
 
 const authSlice = createSlice({
     name: "auth",

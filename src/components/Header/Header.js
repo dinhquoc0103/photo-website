@@ -24,11 +24,12 @@ function Header() {
     const handleSignOut = () => {
         signOut(auth);
 
-        const action = deleteAuth({
+        dispatch(deleteAuth({
             isLogged: false,
             currentUser: {}
-        });
-        dispatch(action);
+        }));
+
+        localStorage.removeItem("AUTH_USER");
 
         navigate("/photos");
     }

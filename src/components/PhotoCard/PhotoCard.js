@@ -35,7 +35,7 @@ function PhotoCard({
                     authUser.isLogged && <div className={cx("overlay__actions")}>
 
                         <div className={cx("overlay__actions__edit")} >
-                            <Link to={`/photos/${photo.id}`}>
+                            <Link to={`/photos/edit/${photo.id}`}>
                                 <Button className={["btn"]}>
                                     Edit
                                 </Button>

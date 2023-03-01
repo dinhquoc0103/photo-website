@@ -8,5 +8,5 @@ export const publicPhotoRoutes = [
 
 export const privatePhotoRoutes = [
     { path: "add", component: AddPhotoForm },
-    { path: ":id", component: EditPhotoForm },
+    { path: "edit/:id", component: EditPhotoForm },
 ];

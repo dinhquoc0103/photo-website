@@ -31,7 +31,7 @@ function EditPhotoForm() {
 
             toast.success('🦄 Successful photo update!', {
                 position: "top-center",
-                autoClose: 2600,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

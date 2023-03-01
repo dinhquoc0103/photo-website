@@ -35,7 +35,7 @@ function IndexPhoto() {
 
             toast.success('🦄 Delete a successful photo!', {
                 position: "top-center",
-                autoClose: 2600,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
