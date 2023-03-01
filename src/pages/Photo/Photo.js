@@ -7,17 +7,17 @@ import { privatePhotoRoutes, publicPhotoRoutes } from "../../routes/photoRoutes"
 import ProtectedRoute from "../../routes/protectedRoute";
 
 import Banner from "../../components/Banner";
+import withRouter from "../../utils/withRouter";
 
 const cx = classNames.bind(styles);
 
 function Photo() {
 
+    const BannerWithRouter = withRouter(Banner);
+
     return (
         <>
-            <Banner
-                title="Your amazings photos"
-                backgroundImg={Images.ColorfulBackground}
-            />
+            <BannerWithRouter />
 
             <div className={cx("container")}>
 
