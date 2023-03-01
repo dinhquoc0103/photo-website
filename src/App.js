@@ -13,29 +13,6 @@ import MainLayout from "./layout/MainLayout";
 
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const unregisterAuthObserver = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log("Is logged")
-        try {
-          const resultAction = await dispatch(fetchUser());
-          const originalPromiseResult = unwrapResult(resultAction);
-        }
-        catch (error) {
-          console.log("Failed to log in: " + error.message);
-        }
-
-        return;
-      }
-
-      console.log("Is not logged")
-
-    })
-
-    return () => unregisterAuthObserver();
-  });
 
   return (
     <BrowserRouter>
