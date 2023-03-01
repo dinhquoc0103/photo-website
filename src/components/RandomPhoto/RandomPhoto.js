@@ -26,6 +26,13 @@ function RandomPhoto({
         }
     }
 
+    const handleErrorImg = () => {
+        if (onImageUrlChange) {
+            const imageUrl = getRandomImageUrl();
+            onImageUrlChange(imageUrl);
+        }
+    }
+
     return (
         <div className={cx("ramdom-photo")}>
             <div className={cx("ramdom-photo__btn")}>
@@ -39,7 +46,15 @@ function RandomPhoto({
             </div>
 
             <div className={cx("random-photo__img")}>
-                {imageUrl && <img src={imageUrl} alt={name} />}
+                {
+                    imageUrl
+                    &&
+                    <img
+                        src={imageUrl}
+                        alt={name}
+                        onError={handleErrorImg}
+                    />
+                }
             </div>
         </div>
     );
