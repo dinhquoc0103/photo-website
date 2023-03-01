@@ -100,7 +100,7 @@ export const updatePhoto = createAsyncThunk(
 export const deletePhoto = createAsyncThunk(
     "photos/deletePhoto",
     async (photo) => {
-        const response = await photoService.deletePhoto(photo.id);
+        await photoService.deletePhoto(photo.id);
         return photo;
     }
 );

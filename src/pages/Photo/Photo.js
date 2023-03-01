@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import styles from "./Photo.module.scss";
-import Images from "../../constants/images";
 import { privatePhotoRoutes, publicPhotoRoutes } from "../../routes/photoRoutes";
 import ProtectedRoute from "../../routes/protectedRoute";
 
@@ -12,7 +11,6 @@ import withRouter from "../../utils/withRouter";
 const cx = classNames.bind(styles);
 
 function Photo() {
-
     const BannerWithRouter = withRouter(Banner);
 
     return (

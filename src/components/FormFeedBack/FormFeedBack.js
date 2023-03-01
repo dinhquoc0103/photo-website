@@ -11,4 +11,8 @@ function FormFeedBack({ children }) {
     );
 }
 
+FormFeedBack.propTypes = {
+    children: PropTypes.node
+}
+
 export default FormFeedBack;
