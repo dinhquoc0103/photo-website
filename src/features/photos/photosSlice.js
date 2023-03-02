@@ -76,10 +76,13 @@ import photoService from "./services";
 //     },
 // ];
 
-export const fetchPhotos = createAsyncThunk("photos/fetchPhotos", async () => {
-    const response = await photoService.getAllPhotos();
-    return response.data;
-});
+export const fetchPhotos = createAsyncThunk(
+    "photos/fetchPhotos",
+    async () => {
+        const response = await photoService.getAllPhotos();
+        return response.data;
+    }
+);
 
 export const addNewPhoto = createAsyncThunk(
     "photos/addNewPhoto",

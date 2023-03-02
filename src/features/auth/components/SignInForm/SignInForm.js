@@ -29,8 +29,9 @@ function SignInForm() {
 
     const handleSignIn = async () => {
         let flag = false;
+
         try {
-            const result = await signInWithPopup(auth, googleProvider);
+            await signInWithPopup(auth, googleProvider);
 
             dispatch(fetchUser()).unwrap();
 
@@ -60,7 +61,7 @@ function SignInForm() {
         <>
             <h1>Welcome to Photo Website</h1>
             <div className={cx("login")}>
-                <GoogleLoginButton onClick={handleSignIn} />
+                <GoogleLoginButton onClick={handleSignIn()} />
             </div>
         </>
     );

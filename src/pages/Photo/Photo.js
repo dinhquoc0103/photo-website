@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import styles from "./Photo.module.scss";
@@ -52,6 +52,7 @@ function Photo() {
                             />
                         })
                     }
+                    <Route path="*" element={<Navigate to="/not-found" />} />
                 </Routes>
             </div>
         </>

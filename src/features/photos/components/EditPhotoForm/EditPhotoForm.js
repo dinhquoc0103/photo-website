@@ -1,4 +1,5 @@
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,6 +16,12 @@ function EditPhotoForm() {
     const photo = useSelector(state => {
         const photos = state.photos.photos;
         return photos.find(photo => photo.id === +id);
+    });
+
+    useEffect(() => {
+        if (!photo) {
+            navigate("/not-found");
+        }
     });
 
     const handleEditPhoto = async (editedPhoto) => {
