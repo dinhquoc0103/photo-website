@@ -84,6 +84,14 @@ export const fetchPhotos = createAsyncThunk(
     }
 );
 
+export const fetchPhoto = createAsyncThunk(
+    "photos/fetchPhoto",
+    async (photoId) => {
+        const response = await photoService.getPhoto(photoId);
+        return response.data;
+    }
+);
+
 export const addNewPhoto = createAsyncThunk(
     "photos/addNewPhoto",
     async (newPhoto) => {
@@ -111,6 +119,7 @@ export const deletePhoto = createAsyncThunk(
 const photosSlice = createSlice({
     name: "photos",
     initialState: {
+        photo: {},
         photos: [],
         status: "idle",
         error: null
@@ -146,6 +155,9 @@ const photosSlice = createSlice({
             .addCase(fetchPhotos.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
+            })
+            .addCase(fetchPhoto.fulfilled, (state, action) => {
+                state.photo = action.payload;
             })
             .addCase(addNewPhoto.fulfilled, (state, action) => {
                 const newPhoto = action.payload;

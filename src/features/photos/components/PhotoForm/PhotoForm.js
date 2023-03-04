@@ -47,13 +47,16 @@ function PhotoForm({
         < div className={cx("container")} >
 
             <Formik
+                enableReinitialize={true}
                 initialValues={initialValues}
                 validationSchema={photoFormSchema}
                 onSubmit={handleSubmitFormPhoto}
             >
                 {
                     formikProps => {
+
                         const { values, errors, touched } = formikProps;
+
                         return (
                             <div className={cx("form")}>
                                 <Form>

@@ -1,28 +1,39 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { updatePhoto } from "../../photosSlice";
+import { fetchPhoto, fetchPhotos, updatePhoto } from "../../photosSlice";
+import photoService from "../../services";
 
 import PhotoForm from "../PhotoForm";
 
 function EditPhotoForm() {
+    const [photo, setPhoto] = useState();
+
     const { id } = useParams();
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const photo = useSelector(state => {
-        const photos = state.photos.photos;
-        return photos.find(photo => photo.id === +id);
-    });
 
     useEffect(() => {
-        if (!photo) {
-            navigate("/not-found");
+        const fetchPhoto = async () => {
+            try {
+                const response = await photoService.getPhoto(id);
+                if (response.data.id) {
+                    setPhoto(response.data);
+                }
+                else {
+                    navigate("/not-found");
+                }
+            }
+            catch (error) {
+                console.error("Failed to get photo: ", error.message);
+            }
         }
-    });
+        fetchPhoto();
+    }, [id]);
 
     const handleEditPhoto = async (editedPhoto) => {
         let flag = false;
@@ -58,7 +69,7 @@ function EditPhotoForm() {
 
     return (
         <>
-            <PhotoForm isAddPhoto={false} photo={photo} onSubmit={handleEditPhoto} />
+            {photo && <PhotoForm isAddPhoto={false} photo={photo} onSubmit={handleEditPhoto} />}
         </>
     );
 }
