@@ -3,11 +3,11 @@ import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../authSlice";
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { signInWithPopup } from "firebase/auth";
 import { toast } from "react-toastify";
 
-import { auth, facebookProvider, googleProvider } from "../../../../firebase";
+import { auth, googleProvider } from "../../../../firebase";
 import store from "../../../../app/store";
 
 import styles from "./SignInForm.module.scss";
@@ -27,26 +27,13 @@ function SignInForm() {
         )
     });
 
-    const handleSignIn = async (type) => {
+    const handleSignIn = async () => {
         let flag = false;
-        let provider;
-
-        switch (type) {
-            case "facebook":
-                provider = facebookProvider;
-                break;
-
-            default:
-                provider = googleProvider;
-                break;
-        }
 
         try {
-            await signInWithPopup(auth, provider);
+            await signInWithPopup(auth, googleProvider);
 
             dispatch(fetchUser()).unwrap();
-
-            flag = !flag;
 
             toast.success('🦄 Logged in successfully!', {
                 position: "top-center",
@@ -58,6 +45,8 @@ function SignInForm() {
                 progress: undefined,
                 theme: "light",
             });
+
+            flag = !flag;
         }
         catch (error) {
             console.error("Failed to logged in: ", error.message);
@@ -72,8 +61,7 @@ function SignInForm() {
         <>
             <h1>Welcome to Photo Website</h1>
             <div className={cx("login")}>
-                <GoogleLoginButton onClick={() => handleSignIn("google")} />
-                <FacebookLoginButton onClick={() => handleSignIn("facebook")} />
+                <GoogleLoginButton onClick={handleSignIn} />
             </div>
         </>
     );
