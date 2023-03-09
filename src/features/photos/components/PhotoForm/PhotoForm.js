@@ -49,7 +49,7 @@ function PhotoForm({
         <>
             {
                 submitting && <div className={cx("loading")}>
-                    <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                    <ReactLoading type="spokes" color="#BABABA" height='4%' width='4%' />
                 </div>
             }
 
@@ -96,10 +96,15 @@ function PhotoForm({
                                             <Button
                                                 type="submit"
                                                 className={["btn"]}
+                                                disabled={isSubmitting}
                                             >
-                                                {isAddPhoto
-                                                    ? isSubmitting ? "Adding..." : "Add Photo to album"
-                                                    : isSubmitting ? "Updating..." : "Update your photo"}
+                                                {
+                                                    isAddPhoto
+                                                        ?
+                                                        isSubmitting ? "Adding..." : "Add Photo to album"
+                                                        :
+                                                        isSubmitting ? "Updating..." : "Update your photo"
+                                                }
                                             </Button>
                                         </div>
                                     </Form>

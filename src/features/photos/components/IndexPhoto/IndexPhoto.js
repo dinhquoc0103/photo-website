@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from 'react-loading';
 import classNames from "classnames/bind";
 
-import { useEffect, useState } from "react";
 import styles from "./IndexPhoto.module.scss";
-import { selectAllPhotos } from "../../../../app/selectors";
+import { authSelector, selectAllPhotos } from "../../../../app/selectors";
 import { deletePhoto, fetchPhotos } from "../../photosSlice";
 import { toast } from "react-toastify";
 
@@ -19,12 +19,10 @@ const cx = classNames.bind(styles);
 function IndexPhoto() {
     const [deleting, setDeleting] = useState(false);
 
-
     const dispatch = useDispatch();
-
     const photos = useSelector(selectAllPhotos);
-
     const photoStatus = useSelector(state => state.photos.status);
+    const authUser = useSelector(authSelector);
 
     useEffect(() => {
         if (photoStatus === "idle") {
@@ -59,10 +57,15 @@ function IndexPhoto() {
     return (
         <div className={cx("photo")}>
             {
-                deleting && <div className={cx("photo-loading")}>
-                    <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                !authUser.isLogged && <p className={cx("photo-signin-notice")}>Sign in to create photos, as well as edit or delete...</p>
+            }
+
+            {
+                deleting && <div className={cx("loading")}>
+                    <ReactLoading type="spokes" color="#BABABA" height='4%' width='4%' />
                 </div>
             }
+
             <div className={cx("photo-adding")}>
                 <Link to="/photos/add">
                     <Button className={["btn"]}>
@@ -70,13 +73,14 @@ function IndexPhoto() {
                     </Button>
                 </Link>
             </div>
+
             {
                 photoStatus === "succeeded"
                     ?
                     <PhotoGrid photos={photos} onDeletePhotoClick={handleDeletePhoto} />
                     :
-                    <div className={cx("photo-loading")}>
-                        <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                    <div className={cx("loading")}>
+                        <ReactLoading type="spokes" color="#BABABA" height='4%' width='4%' />
                     </div>
             }
         </div>

@@ -1,9 +1,7 @@
-import React from "react";
-import Home from "../pages/Home/Home";
+import Home from "../pages/Home";
+import Photo from "../pages/Photo";
 import SignIn from "../pages/SignIn";
 import NotFound from "../pages/NotFound";
-
-const Photo = React.lazy(() => import("../pages/Photo"));
 
 export const publicRoutes = [
     { path: "/", component: Home },

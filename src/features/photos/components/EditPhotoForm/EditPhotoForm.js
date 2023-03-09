@@ -1,10 +1,11 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactLoading from 'react-loading';
 import { toast } from "react-toastify";
 
-import { fetchPhoto, fetchPhotos, updatePhoto } from "../../photosSlice";
+import { updatePhoto } from "../../photosSlice";
 import photoService from "../../services";
 
 import PhotoForm from "../PhotoForm";
@@ -12,10 +13,10 @@ import PhotoForm from "../PhotoForm";
 function EditPhotoForm() {
     const [photo, setPhoto] = useState();
 
+    const dispatch = useDispatch();
+
     const { id } = useParams();
     const navigate = useNavigate();
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchPhoto = async () => {
@@ -69,7 +70,15 @@ function EditPhotoForm() {
 
     return (
         <>
-            {photo && <PhotoForm isAddPhoto={false} photo={photo} onSubmit={handleEditPhoto} />}
+            {
+                photo
+                    ?
+                    <PhotoForm isAddPhoto={false} photo={photo} onSubmit={handleEditPhoto} />
+                    :
+                    <div className="loading">
+                        <ReactLoading type="spokes" color="#BABABA" height='4%' width='4%' />
+                    </div>
+            }
         </>
     );
 }
