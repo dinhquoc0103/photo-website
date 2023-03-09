@@ -2,7 +2,6 @@
   "name": "photo-website",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://photo-website-api.vercel.app/photo-api/v1",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,6 +15,7 @@
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loading": "^2.0.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",

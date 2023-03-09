@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { FastField, Form, Formik } from "formik";
 import * as Yup from "yup";
+import ReactLoading from 'react-loading';
 import classNames from "classnames/bind";
 
 import styles from "./PhotoForm.module.scss";
@@ -10,6 +11,7 @@ import Button from "../../../../components/Button";
 import InputField from "../../../../customField/InputField/InputField";
 import SelectField from "../../../../customField/SelectField/SelectField";
 import RandomPhotoField from "../../../../customField/RandomPhotoField/RandomPhotoField";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +20,7 @@ function PhotoForm({
     photo,
     onSubmit = null
 }) {
+    const [submitting, setSubmitting] = useState(false);
 
     const initialValues = isAddPhoto
         ? {
@@ -43,63 +46,71 @@ function PhotoForm({
     });
 
     return (
+        <>
+            {
+                submitting && <div className={cx("loading")}>
+                    <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                </div>
+            }
 
-        < div className={cx("container")} >
+            < div className={cx("container")} >
+                <Formik
+                    enableReinitialize={true}
+                    initialValues={initialValues}
+                    validationSchema={photoFormSchema}
+                    onSubmit={handleSubmitFormPhoto}
+                >
+                    {
+                        formikProps => {
 
-            <Formik
-                enableReinitialize={true}
-                initialValues={initialValues}
-                validationSchema={photoFormSchema}
-                onSubmit={handleSubmitFormPhoto}
-            >
-                {
-                    formikProps => {
+                            const { values, errors, touched, isSubmitting } = formikProps;
+                            setSubmitting(isSubmitting);
+                            return (
+                                <div className={cx("form")}>
+                                    <Form>
+                                        <FastField
+                                            name="title"
+                                            component={InputField}
 
-                        const { values, errors, touched } = formikProps;
+                                            label="Title"
+                                            placeholder="Eg: A new photo..."
+                                        />
 
-                        return (
-                            <div className={cx("form")}>
-                                <Form>
-                                    <FastField
-                                        name="title"
-                                        component={InputField}
+                                        <FastField
+                                            name="categoryId"
+                                            component={SelectField}
 
-                                        label="Title"
-                                        placeholder="Eg: A new photo..."
-                                    />
+                                            label="Category"
+                                            placeholder="Select your category image..."
+                                            options={PHOTO_CATEGORY_OPTIONS}
+                                        />
 
-                                    <FastField
-                                        name="categoryId"
-                                        component={SelectField}
+                                        <FastField
+                                            name="photo"
+                                            component={RandomPhotoField}
 
-                                        label="Category"
-                                        placeholder="Select your category image..."
-                                        options={PHOTO_CATEGORY_OPTIONS}
-                                    />
+                                            label="Photo"
+                                        />
 
-                                    <FastField
-                                        name="photo"
-                                        component={RandomPhotoField}
-
-                                        label="Photo"
-                                    />
-
-                                    <div className={cx("form-group")}>
-                                        <Button
-                                            type="submit"
-                                            className={["btn"]}
-                                        >
-                                            {isAddPhoto ? "Add Photo to album" : "Edit your photo"}
-                                        </Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        );
+                                        <div className={cx("form-group")}>
+                                            <Button
+                                                type="submit"
+                                                className={["btn"]}
+                                            >
+                                                {isAddPhoto
+                                                    ? isSubmitting ? "Adding..." : "Add Photo to album"
+                                                    : isSubmitting ? "Updating..." : "Update your photo"}
+                                            </Button>
+                                        </div>
+                                    </Form>
+                                </div>
+                            );
+                        }
                     }
-                }
-            </Formik>
+                </Formik>
 
-        </div >
+            </div >
+        </>
     );
 }
 

@@ -1,9 +1,10 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import ReactLoading from 'react-loading';
 import classNames from "classnames/bind";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./IndexPhoto.module.scss";
 import { selectAllPhotos } from "../../../../app/selectors";
 import { deletePhoto, fetchPhotos } from "../../photosSlice";
@@ -16,6 +17,9 @@ import PhotoGrid from "../../../../components/PhotoGrid";
 const cx = classNames.bind(styles);
 
 function IndexPhoto() {
+    const [deleting, setDeleting] = useState(false);
+
+
     const dispatch = useDispatch();
 
     const photos = useSelector(selectAllPhotos);
@@ -29,9 +33,13 @@ function IndexPhoto() {
     }, [photoStatus, dispatch]);
 
     const handleDeletePhoto = async (photo) => {
+        setDeleting(true);
+
         try {
             const resultAction = await dispatch(deletePhoto(photo));
             unwrapResult(resultAction);
+
+            setDeleting(false);
 
             toast.success('🦄 Delete a successful photo!', {
                 position: "top-center",
@@ -50,6 +58,11 @@ function IndexPhoto() {
 
     return (
         <div className={cx("photo")}>
+            {
+                deleting && <div className={cx("photo-loading")}>
+                    <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                </div>
+            }
             <div className={cx("photo-adding")}>
                 <Link to="/photos/add">
                     <Button className={["btn"]}>
@@ -62,7 +75,9 @@ function IndexPhoto() {
                     ?
                     <PhotoGrid photos={photos} onDeletePhotoClick={handleDeletePhoto} />
                     :
-                    <div>Loading...</div>
+                    <div className={cx("photo-loading")}>
+                        <ReactLoading type="spokes" color="red" height='6%' width='6%' />
+                    </div>
             }
         </div>
     );

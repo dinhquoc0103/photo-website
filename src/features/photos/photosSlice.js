@@ -161,7 +161,7 @@ const photosSlice = createSlice({
             })
             .addCase(addNewPhoto.fulfilled, (state, action) => {
                 const newPhoto = action.payload;
-                state.photos.push(newPhoto);
+                state.photos.unshift(newPhoto);
             })
             .addCase(updatePhoto.fulfilled, (state, action) => {
                 const editedPhoto = action.payload;
