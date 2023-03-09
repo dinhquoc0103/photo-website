@@ -57,13 +57,13 @@ function IndexPhoto() {
     return (
         <div className={cx("photo")}>
             {
-                !authUser.isLogged && <p className={cx("photo-signin-notice")}>Sign in to create photos, as well as edit or delete...</p>
-            }
-
-            {
                 deleting && <div className={cx("loading")}>
                     <ReactLoading type="spokes" color="#BABABA" height='4%' width='4%' />
                 </div>
+            }
+
+            {
+                !authUser.isLogged && <p className={cx("photo-signin-notice")}>Sign in to create photos, as well as edit or delete...</p>
             }
 
             <div className={cx("photo-adding")}>
