@@ -26,7 +26,7 @@ function Banner({ router }) {
         }
         setBannerTitle(title);
         setBannerBg(backgroundImg);
-    });
+    }, [location]);
 
     return (
         <section>

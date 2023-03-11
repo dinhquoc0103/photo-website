@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactLoading from 'react-loading';
 import { toast } from "react-toastify";
+import { useTitle } from "../../../../hooks";
 
 import { updatePhoto } from "../../photosSlice";
 import photoService from "../../services";
@@ -17,6 +18,8 @@ function EditPhotoForm() {
 
     const { id } = useParams();
     const navigate = useNavigate();
+
+    useTitle("Photos");
 
     useEffect(() => {
         const fetchPhoto = async () => {
