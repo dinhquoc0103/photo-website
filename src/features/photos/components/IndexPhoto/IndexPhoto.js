@@ -6,12 +6,13 @@ import ReactLoading from 'react-loading';
 import classNames from "classnames/bind";
 
 import styles from "./IndexPhoto.module.scss";
-import { authSelector, selectAllPhotos } from "../../../../app/selectors";
+import { authSelector, selectAllPhotos, photosRemaining } from "../../../../app/selectors";
 import { deletePhoto, fetchPhotos } from "../../photosSlice";
 import { toast } from "react-toastify";
 
 import Button from "../../../../components/Button";
 import PhotoGrid from "../../../../components/PhotoGrid";
+import Filters from "../../../../components/Filters";
 
 
 const cx = classNames.bind(styles);
@@ -20,7 +21,8 @@ function IndexPhoto() {
     const [deleting, setDeleting] = useState(false);
 
     const dispatch = useDispatch();
-    const photos = useSelector(selectAllPhotos);
+
+    const photos = useSelector(photosRemaining);
     const photoStatus = useSelector(state => state.photos.status);
     const authUser = useSelector(authSelector);
 
@@ -66,12 +68,18 @@ function IndexPhoto() {
                 !authUser.isLogged && <p className={cx("photo-signin-notice")}>Sign in to create photos, as well as edit or delete...</p>
             }
 
-            <div className={cx("photo-adding")}>
-                <Link to="/photos/add">
-                    <Button className={["btn"]}>
-                        Add New Photo
-                    </Button>
-                </Link>
+            <div className={cx("photo-action")}>
+                <div className={cx("photo-action__filter")}>
+                    <Filters />
+                </div>
+
+                <div className={cx("photo-action__adding")}>
+                    <Link to="/photos/add">
+                        <Button className={["btn"]}>
+                            Add New Photo
+                        </Button>
+                    </Link>
+                </div>
             </div>
 
             {
